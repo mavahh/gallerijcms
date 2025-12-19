@@ -1,7 +1,7 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-function exposanten_shortcode($atts) {
+function gallerijcms_shortcode($atts) {
     $atts = shortcode_atts([
         'id' => '0',
         'columns_desktop' => '5',
@@ -12,10 +12,10 @@ function exposanten_shortcode($atts) {
         'search' => 'true',
         // Optioneel: binnenmarge rond logo's
         'inner_padding' => '10%'
-    ], $atts, 'exposanten');
+    ], $atts, 'gallerijcms');
 
     $id = (int)$atts['id'];
-    $galleries = get_option('exposanten_galleries', []);
+    $galleries = get_option('gallerijcms_galleries', []);
     if (!is_array($galleries) || !isset($galleries[$id])) return '';
 
     $items = isset($galleries[$id]['items']) && is_array($galleries[$id]['items']) ? $galleries[$id]['items'] : [];
@@ -23,12 +23,12 @@ function exposanten_shortcode($atts) {
     ob_start(); ?>
 
     <?php if ($atts['search'] === 'true'): ?>
-    <div class="exposanten-search">
-        <input type="text" placeholder="<?php echo esc_attr__('Zoek bedrijf...', 'exposanten'); ?>" onkeyup="filterExposanten(this)">
+    <div class="gallerijcms-search">
+        <input type="text" placeholder="<?php echo esc_attr__('Zoek realisatie...', 'gallerijcms'); ?>" onkeyup="filterGallerijcms(this)">
     </div>
     <?php endif; ?>
 
-    <div class="exposanten-grid"
+    <div class="gallerijcms-grid"
          style="--cols-desktop: <?php echo (int)$atts['columns_desktop']; ?>;
                 --cols-tablet: <?php echo (int)$atts['columns_tablet']; ?>;
                 --cols-mobile: <?php echo (int)$atts['columns_mobile']; ?>;
@@ -41,9 +41,12 @@ function exposanten_shortcode($atts) {
             $link = isset($item['link']) ? $item['link'] : '#';
             if (!$img) continue;
         ?>
-            <a href="<?php echo esc_url($link); ?>" target="_blank" class="exposanten-item" data-name="<?php echo esc_attr(strtolower($name)); ?>">
-                <span class="exposanten-thumb">
+            <a href="<?php echo esc_url($link); ?>" class="gallerijcms-item" data-name="<?php echo esc_attr(strtolower($name)); ?>">
+                <span class="gallerijcms-thumb">
                     <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($name); ?>" />
+                    <span class="gallerijcms-overlay">
+                        <span class="gallerijcms-title"><?php echo esc_html($name); ?></span>
+                    </span>
                 </span>
             </a>
         <?php endforeach; ?>
@@ -51,4 +54,4 @@ function exposanten_shortcode($atts) {
 
     <?php return ob_get_clean();
 }
-add_shortcode('exposanten', 'exposanten_shortcode');
+add_shortcode('gallerijcms', 'gallerijcms_shortcode');
