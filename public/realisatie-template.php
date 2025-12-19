@@ -16,7 +16,7 @@ if (!$item) {
 
 get_header();
 ?>
-<main class="gallerijcms-single-page" style="max-width:1200px;margin:40px auto;padding:0 20px;">
+<main class="gallerijcms-single-page">
   <?php echo gallerijcms_render_realisatie(['slug' => $item['slug'] ?? '']); ?>
 </main>
 <?php
