@@ -38,7 +38,9 @@ function gallerijcms_shortcode($atts) {
         <?php foreach ($items as $item):
             $img = isset($item['img']) ? $item['img'] : '';
             $name = isset($item['name']) ? $item['name'] : '';
-            $link = isset($item['link']) ? $item['link'] : '#';
+            $slug = isset($item['slug']) ? $item['slug'] : sanitize_title($name);
+            $default_link = home_url('/realisaties/' . $slug . '/');
+            $link = !empty($item['link']) ? $item['link'] : $default_link;
             if (!$img) continue;
         ?>
             <a href="<?php echo esc_url($link); ?>" class="gallerijcms-item" data-name="<?php echo esc_attr(strtolower($name)); ?>">
