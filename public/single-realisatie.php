@@ -34,7 +34,6 @@ function gallerijcms_render_realisatie($attrs = []) {
 
   $name = $item['name'] ?? '';
   $description = $item['description'] ?? '';
-  $image = $item['img'] ?? '';
   $gallery = isset($item['gallery']) && is_array($item['gallery']) ? $item['gallery'] : [];
 
   ob_start();
@@ -44,12 +43,6 @@ function gallerijcms_render_realisatie($attrs = []) {
 
     <?php if ($description): ?>
       <div class="gallerijcms-single__intro"><?php echo wpautop(esc_html($description)); ?></div>
-    <?php endif; ?>
-
-    <?php if ($image): ?>
-      <div class="gallerijcms-single__hero">
-        <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($name); ?>" />
-      </div>
     <?php endif; ?>
 
     <?php if (!empty($gallery)): ?>
